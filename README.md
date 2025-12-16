@@ -6,7 +6,7 @@ A high-performance static content deployment tool written in Go that significant
 
 On this project, deployment improved from **~115 seconds** (Magento native) to **~0.3-0.5 seconds** for the frontend theme deployment:
 
-- **Pluim/Hyva/frontend**: 11,126 files deployed in 0.3 seconds
+- **Vendor/Hyva/frontend**: 11,126 files deployed in 0.3 seconds
 - **Throughput**: ~40,000 files/second
 - **Speedup**: **230-380x faster** than PHP implementation
 
@@ -34,13 +34,13 @@ go build -o static-deploy main.go watcher.go
 
 ### Basic Usage
 
-Deploy Pluim/Hyva theme to frontend area:
+Deploy Vendor/Hyva theme to frontend area:
 
 ```bash
 ./tools/static-deploy/static-deploy \
   -root . \
   -locales nl_NL \
-  -themes Pluim/Hyva \
+  -themes Vendor/Hyva \
   -areas frontend
 ```
 
@@ -50,7 +50,7 @@ Deploy Pluim/Hyva theme to frontend area:
 ./tools/static-deploy/static-deploy \
   -root . \
   -locales nl_NL,en_US \
-  -themes Pluim/Hyva \
+  -themes Vendor/Hyva \
   -areas frontend \
   -jobs 8 \
   -v
@@ -79,8 +79,8 @@ To deploy admin themes if they exist:
         Example: nl_NL,en_US,de_DE
 
   -themes string
-        Comma-separated themes (default "Pluim/Hyva")
-        Example: Pluim/Hyva,Magento/blank,Hyva/reset
+        Comma-separated themes (default "Vendor/Hyva")
+        Example: Vendor/Hyva,Magento/blank,Hyva/reset
 
   -areas string
         Comma-separated areas (default "frontend,adminhtml")
@@ -105,7 +105,7 @@ To deploy admin themes if they exist:
 ### Deploy Single Locale/Theme
 
 ```bash
-./static-deploy -root /var/www/magento -locales nl_NL -themes Pluim/Hyva -areas frontend
+./static-deploy -root /var/www/magento -locales nl_NL -themes Vendor/Hyva -areas frontend
 ```
 
 ### Deploy Multiple Locales and Themes
@@ -113,7 +113,7 @@ To deploy admin themes if they exist:
 ```bash
 ./static-deploy \
   -locales nl_NL,en_US,de_DE \
-  -themes Pluim/Hyva,Magento/blank \
+  -themes Vendor/Hyva,Magento/blank \
   -areas frontend
 ```
 
@@ -128,7 +128,7 @@ To deploy admin themes if they exist:
 ```bash
 ./static-deploy \
   -locales nl_NL \
-  -themes Pluim/Hyva \
+  -themes Vendor/Hyva \
   -areas frontend,adminhtml
 ```
 
@@ -173,7 +173,7 @@ This version performs pure file copying. The following are handled separately:
 
 1. **Development**: Use Hyva theme's npm build and cache-clean watch
    ```bash
-   npm --prefix app/design/frontend/Pluim/Hyva/web/tailwind run dev
+   npm --prefix app/design/frontend/Vendor/Hyva/web/tailwind run dev
    ```
 
 2. **Deployment Prep**: Run this tool to stage static files
@@ -229,11 +229,3 @@ Since this tool only copies files, it integrates well with existing Magento setu
 1. Hyva theme builds are done via npm
 2. Static files are copied to pub/static by this tool
 3. Cache can be cleared separately as needed
-
-## License
-
-Same as the Magento project
-
-## Author
-
-Created for Uitgeverij Pluim Magento 2 platform

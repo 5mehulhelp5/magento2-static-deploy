@@ -47,7 +47,7 @@ func (w *FileWatcher) Start() {
 					version := fmt.Sprintf("%d", time.Now().Unix())
 					fileCount, err := deployTheme(w.root, DeployJob{
 						Locale: "nl_NL",
-						Theme:  "Pluim/Hyva",
+						Theme:  "Vendor/Hyva",
 						Area:   "frontend",
 					}, version)
 					if err != nil {

@@ -39,8 +39,8 @@ type ModuleConfig struct {
 
 var (
 	magentoRoot = flag.String("root", ".", "Path to Magento root directory")
-	locales     = flag.String("locales", "nl_NL", "Comma-separated locales (e.g., nl_NL,en_US)")
-	themes      = flag.String("themes", "Pluim/Hyva", "Comma-separated themes (e.g., Pluim/Hyva,Hyva/reset)")
+	locales     = flag.String("locales", "en_US", "Comma-separated locales (e.g., en_US,nl_NL,de_DE)")
+	themes      = flag.String("themes", "Vendor/Hyva", "Comma-separated themes (e.g., Vendor/Hyva,Hyva/reset)")
 	areas       = flag.String("areas", "frontend", "Comma-separated areas (default: frontend only)")
 	jobs        = flag.Int("jobs", 0, "Number of parallel jobs (0 = auto-detect CPU count)")
 	strategy    = flag.String("strategy", "quick", "Deployment strategy (quick, standard, compact)")
