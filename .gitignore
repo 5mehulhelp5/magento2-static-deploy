@@ -1,0 +1,19 @@
+# Binary
+static-deploy
+
+# Go build artifacts
+*.o
+*.a
+*.so
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build
+dist/
+build/
