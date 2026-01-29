@@ -210,22 +210,65 @@ This version performs pure file copying. The following are handled separately:
    bin/magento cache:clean
    ```
 
-## Limitations and Future Improvements
+## Limitations
 
-Current version:
-- ✓ Simple, fast file copying
-- ✓ Parallel processing
-- ✓ Multi-locale/theme support
-- ✓ Verbose progress reporting
-- ✓ Content version management
+### Hyva Themes Only
 
-Not yet implemented:
-- LESS/SCSS compilation (use npm instead)
-- JavaScript bundling (use npm instead)
-- Symlink fallback strategy
-- Incremental deployment detection
-- CDN push notifications
-- File checksums/integrity checks
+**This tool is designed specifically for Hyva-based themes** and will not produce identical output to Magento's native `setup:static-content:deploy` for Luma/Blank themes.
+
+#### What's Missing for Luma Support
+
+Magento's native static deploy performs several compilation and generation steps that this tool does not:
+
+| Feature | Magento Native | This Tool |
+|---------|---------------|-----------|
+| File copying | ✅ | ✅ |
+| LESS → CSS compilation | ✅ | ❌ |
+| RequireJS config merging | ✅ | ❌ |
+| JS translation generation | ✅ | ❌ |
+| JavaScript bundling | ✅ | ❌ |
+| SRI hash generation | ✅ | ❌ |
+
+#### Why Not Implement Full Luma Support?
+
+Implementing full Luma compatibility would require:
+
+1. **LESS Compilation** - Either embedding a LESS compiler or shelling out to Node.js `lessc`
+2. **RequireJS Config Merging** - Parsing and merging JavaScript config objects from all modules
+3. **JS Translation Generation** - Reading Magento's PHP translation dictionaries and converting to JSON
+4. **JavaScript Bundling** - Implementing Magento's complex bundling logic
+
+This would add significant complexity and external dependencies (Node.js, potentially PHP for translations), negating much of the simplicity and speed benefits of the Go implementation.
+
+**For Hyva themes, none of this is needed** because:
+- Hyva uses Tailwind CSS (pre-built), not LESS
+- Hyva doesn't use RequireJS
+- Hyva handles translations differently
+- JavaScript is bundled via npm/webpack during theme build
+
+#### Recommendation
+
+- **Hyva themes**: Use this tool for 70-90x faster deployments
+- **Luma/Blank themes**: Continue using `bin/magento setup:static-content:deploy`
+
+### Current Capabilities
+
+- ✅ Fast parallel file copying
+- ✅ Multi-locale/theme/area support
+- ✅ Theme module overrides (`app/design/{area}/{vendor}/{theme}/{Module}/web/`)
+- ✅ Vendor module web assets
+- ✅ Library files (`lib/web/`)
+- ✅ Content version management
+- ✅ Verbose progress reporting
+
+### Not Implemented
+
+- ❌ LESS/SCSS compilation (use npm for Hyva)
+- ❌ RequireJS config merging
+- ❌ JavaScript bundling
+- ❌ JS translation generation
+- ❌ Symlink fallback strategy
+- ❌ Incremental deployment detection
 
 ## Development
 
